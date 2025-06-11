@@ -95,6 +95,9 @@ func FilesFromDisk(ctx context.Context, options *FromDiskOptions, filenames map[
 			if info.IsDir() && nameInArchive == "" {
 				return nil
 			}
+			if info.Mode()&os.ModeSocket != 0 {
+				return nil
+			}
 
 			// handle symbolic links
 			var linkTarget string
